@@ -11,11 +11,16 @@ from pyScript.database.tables import users
 
 app = Flask(__name__)
 
+ip, port = None, None
+
 
 def load_config():
+    global ip, port
+
     # load configure file
     with open('config.json') as file:
         config = load(file)
+    ip, port = config.get("ip", None), config.get("port", None)
 
     # config file load
     app.config.update(**config)
@@ -47,4 +52,4 @@ if __name__ == '__main__':
     load_scripts()
     load_blueprints()
 
-    app.run()
+    app.run(ip, port)
