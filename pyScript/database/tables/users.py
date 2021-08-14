@@ -28,5 +28,10 @@ class User(manager_db.Model, UserMixin, SerializerMixin):
         if balance is not None:
             self.balance = balance
 
-        self.date_registered = datetime.now()
+    def check_password(self, other_password: str, need_hash: bool = True) -> bool:
+        if need_hash:
+            other_password = generate_password_hash(other_password)
+
+        return check_password_hash(self.password, other_password)
+
 

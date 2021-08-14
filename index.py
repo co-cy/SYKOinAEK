@@ -1,10 +1,13 @@
+from pyScript.database.manager_db import manager_db
+from pyScript.manager_login import manager_login
+from pyScript.csrf import manager_csrf
 from flask import Flask
 from json import load
-from pyScript.database.manager_db import manager_db
-from pyScript.csrf import manager_csrf
-from pyScript.manager_login import manager_login
 
+# Load pages
+from pyScript.pages import login
 from pyScript.pages import index
+from pyScript.pages import registration
 
 # Load tables SQL
 from pyScript.database.tables import users
@@ -29,6 +32,8 @@ def load_config():
 def load_blueprints():
     # Создал страничку подключил блупринт
     app.register_blueprint(index.blueprint)
+    app.register_blueprint(login.blueprint)
+    app.register_blueprint(registration.blueprint)
 
 
 def load_scripts():
